@@ -7,24 +7,13 @@ import { DataRequest } from './dataRequest';
 })
 export class ApiService {
   http = inject(HttpClient);
-
-  nbpUrl = 'https://api.nbp.pl/api/exchangerates/rates/A/';
   myApiUrl = 'http://localhost:8080/currencies/';
 
-  //get chosen currency from NBP API
-  getCurrencyData(currencyCode: string){
-    return this.http.get(this.nbpUrl+currencyCode+'?format=json');
-  }
-
   //send a request with received data to database
-  sendRequest(currencyCode: string, username: string, value: number){
-    let newRequest: DataRequest;
-
-    newRequest = {
+  getCurrencyValue(currencyCode: string, username: string){
+    let newRequest = {
       currency: currencyCode,
       name: username,
-      date: new Date(),
-      value: value
     }
 
     return this.http.post(this.myApiUrl+'get-current-currency-value-command', newRequest)

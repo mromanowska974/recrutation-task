@@ -21,16 +21,25 @@ export class CurrentCurrencySelectComponent {
   data: {
     code: string,
     value: number
-  };
+  } | null;
+
+  errorMsg: string = '';
 
   onSubmitData(){
-    console.log(this.dataForm.value);
+    this.errorMsg = '';
+    this.data = null;
 
-    this.apiService.getCurrencyData(this.dataForm.value.code).subscribe((data: any) => {
-      console.log(data);
-      this.data = {
-        code: data.code,
-        value: data.rates[0].mid.toFixed(2)
+    let code = this.dataForm.value.code;
+    this.apiService.getCurrencyValue(this.dataForm.value.code, this.dataForm.value.name).subscribe({
+      next: (value) => {
+        this.data = {
+          code: code,
+          value: +value
+        }
+      },
+      error: error => {
+        console.log(error);
+        this.errorMsg = 'The currency with entered value doesn\'t exist.';
       }
     });
   }
