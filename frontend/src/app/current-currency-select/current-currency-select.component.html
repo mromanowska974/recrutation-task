@@ -20,6 +20,6 @@
     </div>
     <button type="submit" [disabled]="!dataForm.valid">Get Value</button>
   </form>
-  <p *ngIf="data">Current value for currency {{data.code}}: {{data.value}} zł.</p>
+  <p *ngIf="data">Current value for currency {{data.code}}: {{data.value.toFixed(2)}} zł.</p>
   <p *ngIf="errorMsg != ''">{{errorMsg}}</p>
 </div>
