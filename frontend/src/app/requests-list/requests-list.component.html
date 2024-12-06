@@ -5,10 +5,10 @@
     <th>Date</th>
     <th>Current Value</th>
   </tr>
-  <tr>
-    <td>JPY</td>
-    <td>admin</td>
-    <td>dziś</td>
-    <td>2.22</td>
+  <tr *ngFor="let request of allRequests">
+    <td>{{request.currency | uppercase}}</td>
+    <td>{{request.name}}</td>
+    <td>{{request.date | date}}</td>
+    <td>{{request.value.toFixed(2)}} zł</td>
   </tr>
 </table>
